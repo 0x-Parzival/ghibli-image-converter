@@ -58,6 +58,7 @@ function App() {
             <div className={`step ${step >= 2 ? 'active' : ''}`}>2. Enter Details</div>
             <div className={`step ${step >= 3 ? 'active' : ''}`}>3. Upload Photos</div>
             <div className={`step ${step >= 4 ? 'active' : ''}`}>4. Get Results</div>
+            <div className={`step ${step >= 5 ? 'active' : ''}`}>5. Instagram Upload</div>
           </div>
           
           {step === 1 && (
@@ -171,6 +172,21 @@ function App() {
                   Share
                 </button>
               </div>
+              <button 
+                onClick={() => {
+                  setStep(5);
+                }}
+                className="next-button"
+              >
+                Next
+              </button>
+            </div>
+          )}
+
+          {step === 5 && (
+            <div className="instagram-upload">
+              <h2>Instagram Upload</h2>
+              <p>Your image will be uploaded on Instagram in a creative way!</p>
               <button 
                 onClick={() => {
                   setStep(1);

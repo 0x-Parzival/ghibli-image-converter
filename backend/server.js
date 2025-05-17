@@ -28,7 +28,8 @@ const requestSchema = new mongoose.Schema({
   resultImageUrl: String,
   status: { type: String, enum: ['pending', 'processing', 'completed', 'failed'], default: 'pending' },
   createdAt: { type: Date, default: Date.now },
-  error: String
+  error: String,
+  instagramUploadStatus: { type: String, enum: ['pending', 'uploaded'], default: 'pending' } // Pc018
 });
 
 const Request = mongoose.model('Request', requestSchema);
@@ -197,6 +198,7 @@ app.post('/api/generate-ghibli', async (req, res) => {
       // Update the request in the database
       newRequest.resultImageUrl = generatedImageUrl;
       newRequest.status = 'completed';
+      newRequest.instagramUploadStatus = 'uploaded'; // P3f40
       await newRequest.save();
       
       // Send notification email to site owner
@@ -204,7 +206,8 @@ app.post('/api/generate-ghibli', async (req, res) => {
       
       res.json({ 
         imageUrl: generatedImageUrl,
-        requestId: newRequest._id
+        requestId: newRequest._id,
+        message: 'Your image will be uploaded on Instagram in a creative way!' // P3f40
       });
     } catch (openaiError) {
       console.error('OpenAI API error:', openaiError);
